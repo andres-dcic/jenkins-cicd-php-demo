@@ -14,12 +14,12 @@ pipeline {
         stage('Ceck-Git-Secrets') {
             steps {
                 sh 'rm trufflehog || true'
-                sh 'docker run rajlocuz/trufflehog https://github.com/andres-dcic/jenkins-cicd-php-demo.git > trufflehog'
+                sh 'docker run rajlocuz/trufflehog  --json https://github.com/andres-dcic/jenkins-cicd-php-demo.git > trufflehog'
                 sh 'cat trufflehog'
                 
                 }
             }
-            
+
         
         stage('test deploy') {
             steps {
