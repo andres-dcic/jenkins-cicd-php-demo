@@ -9,8 +9,8 @@ pipeline {
                 '''
                 }
             }
-        }
 
+    
         stage('Ceck-Git-Secrets') {
             steps {
                 sh 'rm trufflehog || true'
@@ -19,8 +19,8 @@ pipeline {
                 
                 }
             }
-        }
-
+            
+        
         stage('test deploy') {
             steps {
                 echo 'Hello World'
