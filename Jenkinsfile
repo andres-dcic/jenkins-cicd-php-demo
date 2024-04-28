@@ -15,7 +15,21 @@ pipeline {
             steps {
                 sh 'rm trufflehog || true'
                 sh 'docker run rajlocuz/trufflehog  --json https://github.com/andres-dcic/jenkins-cicd-php-demo.git > trufflehog.json'
-                sh 'cat trufflehog'
+                        script {
+                        def jsonReport = readFile('trufflehog.json')
+                        def htmlReport = """
+                            <html>
+                            <head>
+                                <title>Trufflehog Scan Report</title>
+                            </head>
+                            <body>
+                                <h1>Trufflehog Scan Report</h1>
+                                <pre>${jsonReport}</pre>
+                            </body>
+                            </html>
+                            """
+                            writeFile file: 'scanresults/trufflehog-report.html', text: htmlReport
+                 
                 
                 }
             }
