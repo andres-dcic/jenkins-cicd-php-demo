@@ -2,9 +2,13 @@ pipeline {
     agent any
 
     stages {
-        stage('Deploy PHP application') {
+        stage('test deploy') {
             steps {
-                sshPublisher(publishers: [sshPublisherDesc(configName: 'php_server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/var/www/html/', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*.php')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                echo 'Hello World'
+                sh 'touch prueba.txt'
+                sshagent(['ssh-mv']){
+                    sh 'scp -o StrictHostKeyChecking=no  index.html andres@192.168.0.143:/var/www/html'
+                }
             }
         }
     }
